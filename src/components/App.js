@@ -6,6 +6,12 @@ import ToyContainer from "./ToyContainer";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [toysArr,toysArrSetter] = useState([]);
+
+  const onSubmit = (newToy) => {
+
+    toysArrSetter([...toysArr, newToy])
+  }
 
   function handleClick() {
     setShowForm((showForm) => !showForm);
@@ -14,11 +20,17 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm 
+                            onSubmit={onSubmit}
+                            toysArr = {toysArr}
+                            /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer />
+      <ToyContainer 
+      toysArr = {toysArr}
+      toysArrSetter = {toysArrSetter}
+      />
     </>
   );
 }
